@@ -28,6 +28,14 @@ case "$(echo "$WP_ADMIN_USER" | tr '[:upper:]' '[:lower:]')" in
     ;;
 esac
 
+# Ensure WP_USER does not contain "admin" (42 requirement)
+case "$(echo "$WP_USER" | tr '[:upper:]' '[:lower:]')" in
+  *admin*)
+    echo "ERROR: WP_USER ('${WP_USER}') must not contain 'admin'. Aborting."
+    exit 1
+    ;;
+esac
+
 # Copy WordPress core if volume empty
 if [ ! -f /var/www/index.php ]; then
   echo ">>> Copying WordPress core..."
