@@ -1,7 +1,8 @@
 # Secrets & credentials
 srcs/.env
-srcs/requirements/tools/*.key
-srcs/requirements/tools/*.pem
+srcs/requirements/**/tools/*.key
+srcs/requirements/**/tools/*.pem
+srcs/requirements/**/tools/*.crt
 
 # MariaDB runtime files
 srcs/requirements/mariadb/ib_logfile*
@@ -11,6 +12,7 @@ srcs/requirements/mariadb/mariadb_upgrade_info
 srcs/requirements/mariadb/sys/
 srcs/requirements/mariadb/mysql/
 srcs/requirements/mariadb/wordpress/
+srcs/requirements/mariadb/wp_user/
 srcs/requirements/mariadb/performance_schema/
 
 # Docker
