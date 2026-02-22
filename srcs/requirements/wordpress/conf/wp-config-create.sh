@@ -20,6 +20,13 @@ echo ">>> MariaDB is ready!"
 : "${WP_USER_PASS:?Missing WP_USER_PASS}"
 : "${WP_USER_EMAIL:?Missing WP_USER_EMAIL}"
 
+# Ensure WP_ADMIN_USER does not contain "admin" (42 requirement)
+case "$(echo "$WP_ADMIN_USER" | tr '[:upper:]' '[:lower:]')" in
+  *admin*)
+    echo "ERROR: WP_ADMIN_USER ('${WP_ADMIN_USER}') must not contain 'admin'. Aborting."
+    exit 1
+    ;;
+esac
 
 # Copy WordPress core if volume empty
 if [ ! -f /var/www/index.php ]; then
