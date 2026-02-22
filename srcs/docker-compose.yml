@@ -48,7 +48,17 @@ services:
       retries: 10
 volumes:
   wp-volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${LOGIN}/data/wordpress
   db-volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${LOGIN}/data/mariadb
 
 networks:
   inception:

@@ -1,17 +1,22 @@
 # Secrets & credentials
 srcs/.env
-srcs/requirements/tools/*.key
-srcs/requirements/tools/*.pem
+srcs/requirements/nginx/tools/*.key
+srcs/requirements/nginx/tools/*.pem
 
 # MariaDB runtime files
+srcs/requirements/mariadb/aria_log*
 srcs/requirements/mariadb/ib_logfile*
 srcs/requirements/mariadb/ib_buffer_pool
 srcs/requirements/mariadb/ibdata*
 srcs/requirements/mariadb/mariadb_upgrade_info
+srcs/requirements/mariadb/multi-master.info
+srcs/requirements/mariadb/ddl_recovery-backup.log
+srcs/requirements/mariadb/undo*
 srcs/requirements/mariadb/sys/
 srcs/requirements/mariadb/mysql/
 srcs/requirements/mariadb/wordpress/
 srcs/requirements/mariadb/performance_schema/
+srcs/requirements/mariadb/wp_user/
 
 # Docker
 .DS_Store

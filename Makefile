@@ -1,10 +1,13 @@
 name = Inception42
+LOGIN = mkokorev
 
 all:
+	@mkdir -p /home/$(LOGIN)/data/wordpress /home/$(LOGIN)/data/mariadb
 	@printf "Launch configuration ${name}...\n"
 	@docker compose -f srcs/docker-compose.yml up -d
 
 build:
+	@mkdir -p /home/$(LOGIN)/data/wordpress /home/$(LOGIN)/data/mariadb
 	@printf "Building configuration ${name}...\n"
 	@docker compose -f srcs/docker-compose.yml up -d --build
 
