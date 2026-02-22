@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    depends_on:
+      wordpress:
+        condition: service_healthy
+    ports:
+      - "443:443"
+    volumes:
+      - wp-volume:/var/www/
+    networks:
+      - inception
+    restart: always
+
+  mariadb:
+    build: ./requirements/mariadb
+    volumes:
+      - db-volume:/var/lib/mysql
+    env_file:
+      - .env
+    networks:
+      - inception
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${MARIADB_USER}", "-p${MARIADB_PASSWORD}", "--silent"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  wordpress:
+    build: ./requirements/wordpress
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    env_file:
+      - .env
+    networks:
+      - inception
+    volumes:
+      - wp-volume:/var/www/
+    restart: always
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "9000"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+volumes:
+  wp-volume:
+  db-volume:
+
+networks:
+  inception:
+    driver: bridge
+

@@ -1,0 +1,7 @@
+[mysqld]
+#open the connection for every ip
+skip-networking=0
+bind-address=0.0.0.0
+port=3306
+#don't try to define hostname with client's ip. (No DNS queries cause it slow))
+skip-name-resolve
