@@ -1,6 +1,7 @@
 services:
   nginx:
     build: ./requirements/nginx
+    image: nginx
     depends_on:
       wordpress:
         condition: service_healthy
@@ -14,6 +15,7 @@ services:
 
   mariadb:
     build: ./requirements/mariadb
+    image: mariadb
     volumes:
       - db-volume:/var/lib/mysql
     env_file:
@@ -28,6 +30,7 @@ services:
       retries: 10
   wordpress:
     build: ./requirements/wordpress
+    image: wordpress
     depends_on:
       mariadb:
         condition: service_healthy
