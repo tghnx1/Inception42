@@ -1,5 +1,7 @@
 # Secrets & credentials
 srcs/.env
+secrets/*
+!secrets/.gitkeep
 srcs/requirements/**/tools/*.key
 srcs/requirements/**/tools/*.pem
 srcs/requirements/**/tools/*.crt
