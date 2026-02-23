@@ -8,9 +8,9 @@ until nc -z mariadb 3306; do
 done
 echo ">>> MariaDB is ready!"
 
-: "${DB_NAME:?Missing DB_NAME}"
-: "${DB_USER:?Missing DB_USER}"
-: "${DB_PASS:?Missing DB_PASS}"
+: "${MARIADB_DATABASE:?Missing MARIADB_DATABASE}"
+: "${MARIADB_USER:?Missing MARIADB_USER}"
+: "${MARIADB_PASSWORD:?Missing MARIADB_PASSWORD}"
 : "${DB_HOST:?Missing DB_HOST}"
 : "${DOMAIN_NAME:?Missing DOMAIN_NAME}"
 : "${WP_ADMIN_USER:?Missing WP_ADMIN_USER}"
@@ -39,9 +39,9 @@ if [ ! -f /var/www/wp-config.php ]; then
   echo ">>> Creating wp-config.php..."
   wp config create \
     --path=/var/www \
-    --dbname="${DB_NAME}" \
-    --dbuser="${DB_USER}" \
-    --dbpass="${DB_PASS}" \
+    --dbname="${MARIADB_DATABASE}" \
+    --dbuser="${MARIADB_USER}" \
+    --dbpass="${MARIADB_PASSWORD}" \
     --dbhost="${DB_HOST}" \
     --allow-root
 fi
