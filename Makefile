@@ -1,37 +1,21 @@
-name = Inception42
-
 all:
-	@printf "Launch configuration ${name}...\n"
-	@docker compose -f srcs/docker-compose.yml up -d
-
-build:
-	@printf "Building configuration ${name}...\n"
+	@echo "Setting up Docker data root..."
+	@sudo mkdir -p /home/$(USER)/data
+	@echo '{"data-root": "/home/$(USER)/data"}' | sudo tee /etc/docker/daemon.json > /dev/null
+	@sudo systemctl restart docker
+	@echo "Starting containers..."
 	@docker compose -f srcs/docker-compose.yml up -d --build
 
 down:
-	@printf "Stopping configuration ${name}...\n"
-	@docker compose -f srcs/docker-compose.yml down
+	docker compose -f srcs/docker-compose.yml down
 
-re: down
-	@printf "Rebuild configuration ${name}...\n"
-	@docker compose -f srcs/docker-compose.yml up -d --build
+re: down all
 
 clean: down
-	@printf "Cleaning configuration ${name}...\n"
-	@docker system prune --force
+	docker system prune -f
 
-fclean:
-	@printf "Total clean of all docker resources\n"
-	@docker ps -qa | xargs -r docker stop
-	@docker system prune --all --force --volumes
-	@docker network prune --force
-	@docker volume prune --force
+fclean: clean
+	sudo rm -rf /home/$(USER)/data
+	docker system prune -af
 
-logs:
-	@docker compose -f srcs/docker-compose.yml logs -f
-
-ps:
-	@docker compose -f srcs/docker-compose.yml ps
-
-.PHONY: all build down re clean fclean logs ps
-
+.PHONY: all down re clean fclean
