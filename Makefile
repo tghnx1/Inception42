@@ -1,25 +1,19 @@
 # 'all' is the default target, runs when you just type 'make'
 all:
-	# @echo suppresses printing the command itself, only shows the message
-	@echo "Setting up Docker data root..."
-
-	# mkdir -p: creates directory and all parent directories if they don't exist
+	# mkdir -p: creates directory and all parent directories if they don't exist; no error if already exists
 	# $(USER): Makefile variable that expands to the current Linux username
 	@sudo mkdir -p /home/$(USER)/data
 
 	# Sets Docker's data root to /home/$(USER)/data instead of default /var/lib/docker
-	# 'tee' writes to the file AND stdout; '> /dev/null' suppresses stdout output
+	# tee: writes to both file and stdout; '> /dev/null' suppresses the stdout copy so only the file is written
 	@echo '{"data-root": "/home/$(USER)/data"}' | sudo tee /etc/docker/daemon.json > /dev/null
 
 	# Restarts Docker daemon to apply the new data-root configuration from daemon.json
 	@sudo systemctl restart docker
 
-	@echo "Starting containers..."
-
-	# docker compose: runs Docker Compose (V2 syntax, no hyphen)
-	# -f srcs/docker-compose.yml: specifies the compose file path (not default location)
+	# -f: specifies the compose file path (not the default location)
 	# up: creates and starts all containers defined in the compose file
-	# -d: detached mode — runs containers in the background (daemon)
+	# -d: detached mode — runs containers in the background as daemon processes
 	# --build: forces rebuild of images before starting containers
 	@docker compose -f srcs/docker-compose.yml up -d --build
 
