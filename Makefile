@@ -2,6 +2,9 @@ name = Inception42
 
 all:
 	@printf "Launch configuration ${name}...\n"
+	@if ! grep -q "mkokorev.42.fr" /etc/hosts; then \
+		echo "127.0.0.1 mkokorev.42.fr www.mkokorev.42.fr" | sudo tee -a /etc/hosts; \
+	fi
 	@docker compose -f srcs/docker-compose.yml up -d
 
 build:
