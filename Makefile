@@ -3,7 +3,7 @@ name = Inception42
 all:
 	@printf "Launch configuration ${name}...\n"
 	@if ! grep -q "mkokorev.42.fr" /etc/hosts; then \
-		echo "127.0.0.1 mkokorev.42.fr www.mkokorev.42.fr" | sudo tee -a /etc/hosts; \
+		echo "127.0.0.1 mkokorev.42.fr www.mkokorev.42.fr" | tee -a /etc/hosts; \
 	fi
 	@if ! grep -q "data-root" /etc/docker/daemon.json 2>/dev/null; then \
 		echo '{"data-root": "/home/mkokorev/data"}' | sudo tee /etc/docker/daemon.json; \
