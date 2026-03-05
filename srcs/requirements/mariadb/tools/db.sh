@@ -34,6 +34,7 @@ FLUSH PRIVILEGES;
 EOF
 
     echo ">>> Running bootstrap SQL..."
+#	--bootstrap is the special flag that tells mariadbd:  read SQL from stdin, execute it, then exit
     mariadbd --user=mysql --datadir=/var/lib/mysql --bootstrap < /tmp/init.sql
 
     echo ">>> Cleaning up init SQL..."
@@ -41,9 +42,4 @@ EOF
 fi
 
 echo ">>> Starting MariaDB normally..."
-exec mariadbd \
-  --user=mysql \
-  --datadir=/var/lib/mysql \
-  --bind-address=0.0.0.0 \
-  --port=3306
-
+exec "$@"

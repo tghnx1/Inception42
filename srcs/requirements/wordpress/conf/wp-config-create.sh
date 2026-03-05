@@ -2,11 +2,6 @@
 
 set -e
 
-echo ">>> Waiting for MariaDB..."
-until nc -z mariadb 3306; do
-  sleep 1
-done
-echo ">>> MariaDB is ready!"
 
 : "${MARIADB_DATABASE:?Missing MARIADB_DATABASE}"
 : "${MARIADB_USER:?Missing MARIADB_USER}"
