@@ -1,4 +1,4 @@
-FROM alpine:3.23.3
+FROM alpine:3.22.3
 
 ARG PHP_VERSION=83
 
@@ -61,6 +61,8 @@ RUN wget https://wordpress.org/latest.zip \
 # Copy entrypoint script that will generate wp-config at runtime
 COPY conf/wp-config-create.sh /wp-config-create.sh
 RUN chmod +x /wp-config-create.sh
+
+EXPOSE 9000
 
 ENTRYPOINT ["/wp-config-create.sh"]
 CMD ["/usr/sbin/php-fpm83", "-F"]

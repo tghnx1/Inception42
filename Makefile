@@ -1,4 +1,4 @@
-name = Inception42
+name = Inception
 
 all:
 	@printf "Launch configuration ${name}...\n"
