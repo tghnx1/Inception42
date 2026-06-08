@@ -94,11 +94,11 @@ All credentials are configured via the `srcs/.env` file. Below are the relevant 
 ```bash
 docker ps
 ```
-All three containers (`ngnix`, `wordpress`, `mariadb`) should show a status of `Up`.
+All three containers (`nginx`, `wordpress`, `mariadb`) should show a status of `Up`.
 
 ### Check logs for a specific service
 ```bash
-docker logs ngnix
+docker logs nginx
 docker logs wordpress
 docker logs mariadb
 ```
